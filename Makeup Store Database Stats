@@ -1,0 +1,32 @@
+Create a beauty store database
+
+CREATE TABLE beautystore (id INTEGER PRIMARY KEY, product TEXT, category TEXT, quantity INTEGER, aisle TEXT, price_dollars INTEGER, color TEXT);
+
+INSERT INTO beautystore VALUES (1, "Benefit Roller Lash", "mascara", 15, "makeup", 20, "black");
+INSERT INTO beautystore VALUES (2, "Loreal Ever Pure", "shampoo", 22, "hair", 6, "purple");
+INSERT INTO beautystore VALUES (3, "Cerave Lotion", "lotion", 6, "skincare", 15, "white");
+INSERT INTO beautystore VALUES (4, "MAC Viva Glam", "lipstick", 19, "makeup", 20, "pink");
+INSERT INTO beautystore VALUES (5, "ELF Mist & Set", "setting spray", 44, "makeup", 7.50, "clear");
+INSERT INTO beautystore VALUES (6, "Aquaphor", "lotion", 20, "skincare", 8, "clear");
+INSERT INTO beautystore VALUES (7, "Mad Hippie Mist", "setting spray", 88, "skincare", 25, "clear");
+INSERT INTO beautystore VALUES (8, "OLAPLEX", "hair oil", 13, "hair", 65, "yellow");
+INSERT INTO beautystore VALUES (9, "Maybelline BB Fresh", "foundation", 8, "makeup", 8, "tan");
+INSERT INTO beautystore VALUES (10, "MAC Harmony", "blush", 19, "makeup", 15, "pink");
+INSERT INTO beautystore VALUES (11, "Rosebud Salve", "lip oil", 67, "skincare", 10.25, "pink");
+INSERT INTO beautystore VALUES (12, "MAC Satin Taupe", "eyeshadow", 5, "makeup", 12, "taupe");
+INSERT INTO beautystore VALUES (13, "tweezerman mini", "tweezers", 55, "tools", 8, "black");
+INSERT INTO beautystore VALUES (14, "NAKED Honey", "eyeshadow palette", 27, "makeup", 35, "yellow");
+INSERT INTO beautystore VALUES (15, "Beveled Brow Liner Brush", "spoolie", 55, "tools", 5.50, "silver");
+SELECT * FROM beautystore;
+
+
+--display the beauty store ordered by price
+SELECT * FROM beautystore WHERE price_dollars ORDER BY price_dollars desc;
+
+--Which pieces of inventory have less than 20 units left?
+SELECT * FROM beautystore WHERE quantity < 20
+
+--what is the avg price of items in the hair section? 
+SELECT AVG(price_dollars) "avg hair product price"
+FROM beautystore
+where section='hair';
