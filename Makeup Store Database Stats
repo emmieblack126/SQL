@@ -20,11 +20,11 @@ INSERT INTO beautystore VALUES (15, "Beveled Brow Liner Brush", "spoolie", 55, "
 SELECT * FROM beautystore;
 
 
---display the beauty store ordered by price
-SELECT * FROM beautystore WHERE price_dollars ORDER BY price_dollars desc;
+--display products less than 25 dollars ordered largest price first
+SELECT * FROM beautystore WHERE price_dollars <25 ORDER BY price_dollars desc;
 
 --Which pieces of inventory have less than 20 units left?
-SELECT * FROM beautystore WHERE quantity < 20
+SELECT * FROM beautystore WHERE quantity < 20;
 
 --what is the avg price of items in the hair section? 
 SELECT AVG(price_dollars) "avg hair product price"
