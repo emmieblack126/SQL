@@ -1,0 +1,70 @@
+/* Four friends named Owen,Hannah,Trina, and Emily take walking very seriously and love to meet their step goals. They have a daily goal of 10,000 to 12,000 steps.
+They decided to challege each other and record their daily steps to see who would end up with the most steps in a day, and overall steps during the week.
+
+
+CREATE TABLE walking_competition (id INTEGER PRIMARY KEY AUTOINCREMENT,
+    day TEXT, 
+name TEXT, 
+total_daily_steps INTEGER);
+
+INSERT INTO walking_competition (day,name,total_daily_steps) VALUES ("Sunday","Owen",9876);
+
+INSERT INTO walking_competition (day,name,total_daily_steps) VALUES ("Sunday","Emily",12987);
+INSERT INTO walking_competition (day,name,total_daily_steps) VALUES ("Sunday","Trina",14098);
+
+INSERT INTO walking_competition (day,name,total_daily_steps) VALUES ("Sunday","Hannah",8876);
+
+INSERT INTO walking_competition (day,name,total_daily_steps) VALUES ("Monday","Owen",13452);
+
+INSERT INTO walking_competition (day,name,total_daily_steps) VALUES ("Monday","Emily",9345);
+
+INSERT INTO walking_competition (day,name,total_daily_steps) VALUES ("Monday","Trina",11286);
+
+INSERT INTO walking_competition (day,name,total_daily_steps) VALUES ("Monday","Hannah",6728);
+
+INSERT INTO walking_competition (day,name,total_daily_steps) VALUES ("Tuesday","Owen",16287);
+INSERT INTO walking_competition (day,name,total_daily_steps) VALUES ("Tuesday","Emily",12009);
+INSERT INTO walking_competition (day,name,total_daily_steps) VALUES ("Tuesday","Trina","12980");
+INSERT INTO walking_competition (day,name,total_daily_steps) VALUES ("Tuesday","Hannah",17254);
+INSERT INTO walking_competition (day,name,total_daily_steps) VALUES ("Wednesday", "Owen",16548);
+INSERT INTO walking_competition (day,name,total_daily_steps) VALUES ("Wednesday", "Emily",10700);
+INSERT INTO walking_competition (day,name,total_daily_steps) VALUES ("Wednesday", "Trina",22485);
+INSERT INTO walking_competition (day,name,total_daily_steps) VALUES ("Wednesday", "Hannah",1258);
+INSERT INTO walking_competition (day,name,total_daily_steps) VALUES ("Thursday", "Owen",24856);
+INSERT INTO walking_competition (day,name,total_daily_steps) VALUES ("Thursday", "Emily",14254);
+INSERT INTO walking_competition (day,name,total_daily_steps) VALUES ("Thursday", "Trina",1258);
+INSERT INTO walking_competition (day,name,total_daily_steps) VALUES ("Thursday", "Hannah",2547);
+INSERT INTO walking_competition (day,name,total_daily_steps) VALUES ("Friday", "Owen",5487);
+INSERT INTO walking_competition (day,name,total_daily_steps) VALUES ("Friday", "Emily",12547);
+INSERT INTO walking_competition (day,name,total_daily_steps) VALUES ("Friday", "Trina",13560);
+INSERT INTO walking_competition (day,name,total_daily_steps) VALUES ("Friday", "Hannah",10444);
+INSERT INTO walking_competition (day,name,total_daily_steps) VALUES ("Saturday","Owen",2399);
+INSERT INTO walking_competition (day,name,total_daily_steps) VALUES ("Saturday","Emily",1234);
+INSERT INTO walking_competition (day,name,total_daily_steps) VALUES ("Saturday","Trina",11577);
+INSERT INTO walking_competition (day,name,total_daily_steps) VALUES ("Saturday","Hannah",13654);
+SELECT * FROM walking_competition;
+
+
+SELECT*FROM walking_competition ORDER BY total_daily_steps desc;
+
+/*show the ranking from best to worst steps in the entire walking competition*/
+
+SELECT*FROM walking_competition WHERE total_daily_steps > 12000 AND day IN("Friday","Saturday","Sunday") ORDER BY day;
+
+/* Select all columns and rows from the walking competition where the value of the steps taken are over 10,000 on a weekend and order it by day*/
+
+SELECT name, SUM(total_daily_steps)AS weekly_total from walking_competition GROUP BY name;
+
+/*Show the name of the competitor and total steps they took all week*/
+
+SELECT name, day, total_daily_steps,
+    CASE 
+        WHEN total_daily_steps > 12000 THEN "above target"
+        WHEN total_daily_steps > 10000 THEN "within target"
+        
+    ELSE "below target"
+    END as "meets_goals"
+FROM walking_competition
+ORDER BY name;
+
+/*create column called meets goals where someone is assigned as meeting, or exceeding their 10,000-12,000 step goal based on their total daily steps*/
