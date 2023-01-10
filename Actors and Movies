@@ -1,0 +1,48 @@
+/* I created two tables, one with actors and their birth year and the other with famous movies they were in and their release year. 
+First, I created a query and used and inner join to display the actors name and the movie they were in. My next query calculated the 
+actors' age using their birth year, My final query used another JOIN to calculate the age the actor was when they starred in that movie.*/
+
+
+
+CREATE TABLE actors (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT,
+    birth_year INTEGER);
+    
+    INSERT INTO actors (name, birth_year) VALUES ("Leonardo Dicaprio", 1974);
+    INSERT INTO actors (name, birth_year) VALUES ("Ryan Reynolds", 1976);
+    INSERT INTO actors (name, birth_year) VALUES ("Blake Lively", 1987);
+    INSERT INTO actors (name, birth_year) VALUES ("Samuel L Jackson", 1948);
+    INSERT INTO actors (name, birth_year) VALUES ("Brad Pitt", 1963);
+    INSERT INTO actors (name, birth_year) VALUES ("Kate Winslet", 1975);
+    
+    CREATE TABLE movies (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT,
+    actor_id INTEGER, release_year INTEGER);
+    
+    INSERT INTO movies (name, actor_id,release_year) VALUES ("Shutter Island",1,2010);
+    INSERT INTO movies (name, actor_id,release_year) VALUES ("Deadpool",2,2016);
+    INSERT INTO movies (name, actor_id,release_year) VALUES ("Titanic",6,1997);
+    INSERT INTO movies (name, actor_id,release_year) VALUES ("Titanic",1,1997);
+    INSERT INTO movies (name, actor_id,release_year) VALUES ("Fight Club",5,1999);
+    INSERT INTO movies (name, actor_id,release_year) VALUES ("Seven",5,1995);
+    INSERT INTO movies (name, actor_id,release_year) VALUES ("Django",4,2012);
+    INSERT INTO movies (name, actor_id,release_year) VALUES ("Django",1,2012);
+    INSERT INTO movies (name, actor_id,release_year) VALUES ("The Shallows",3,2016);
+    INSERT INTO movies (name, actor_id,release_year) VALUES ("Once Upon a Time in Hollywood",1,2019);
+    INSERT INTO movies (name, actor_id,release_year) VALUES ("Once Upon a Time in Hollywood",5,2019);
+    
+    SELECT actors.name,movies.name
+    FROM actors
+    JOIN movies
+    ON actors.id=movies.actor_id
+    ORDER BY actors.name;
+
+SELECT name, 2022-(birth_year)AS age
+from actors;
+
+SELECT actors.name,movies.name,movies.release_year-actors.birth_year AS age_in_role
+FROM actors
+JOIN movies
+ON actors.id=movies.actor_id;
