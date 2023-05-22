@@ -1,0 +1,119 @@
+Here I quantified data from a Super Store data set. I transformed the files from Excel into CSV to query them in SQLite Studio.
+
+How many unique orders are in the data set?
+-There are 5009 unique orders.
+SELECT COUNT(DISTINCT "Order ID") AS unique_orders_count
+FROM Superstore_Data;
+
+What are the total sales and profit made in orders?
+-There was $2,297,201 in sales and $286,397 in profit
+SELECT ROUND(SUM(Sales)) AS total_sales, ROUND(SUM(Profit)) AS total_profit
+FROM Superstore_Data;
+
+What is the latest and oldest order date available in data?
+-The latest order date was 43099 and the oldest order date was 41642
+SELECT MAX("Order Date") AS latest_order_date, MIN("Order Date") AS oldest_order_date
+FROM Superstore_Data;
+
+Which customer has made most orders ?
+-William Brown had the most orders with 37 total orders.
+SELECT "Customer Name", COUNT(*) AS order_count
+FROM Superstore_Data
+GROUP BY "Customer Name"
+ORDER BY order_count DESC
+LIMIT 1;
+
+How many unique orders are placed across each “segment – category” combinations of the products?
+Consumer Furniture - 917 orders
+Consumer Office Supplies - 1922 orders
+Consumer Technology - 809 orders
+Corporate Furniture - 540 orders
+Corporate Office Supplies – 1142 orders
+Corporate Technology - 454 orders
+Home Office Furniture – 307 orders
+Home Office Office Supplies - 678 orders
+Home Office Technology – 281 orders
+
+SELECT Segment, Category, COUNT(DISTINCT "Order ID") AS unique_order_count
+FROM Superstore_Data
+GROUP BY Segment, Category;
+
+Which region (name)  has made most, least - total sales and profit?
+Central Region has $501,239.89 Sales and $39,706.36 profit
+East Region has $678,781.23 Sales and $91,522.78 Profit
+South Region has $391,721.82 Sales and $46,749.43 Profit
+West Region has $725,457.82 Sales and $108,418.44 Profit
+-The West Region has the greatest sales and profit. The Central region has the least profit, while the South has the least in total sales.
+SELECT Region.Region, SUM(Superstore_Data.Sales) AS total_sales, SUM(Superstore_Data.Profit) AS total_profit
+FROM Superstore_Data
+LEFT JOIN Region ON Superstore_Data.Region = Region.RegionID
+GROUP BY Region.Region
+ORDER BY total_profit DESC;
+
+What are the average sales for category “Technology”?
+-The average sales for Technology was $453. 
+SELECT ROUND(AVG(Sales)) as average_sales, Category
+FROM Superstore_Data
+WHERE Category = "Technology";
+
+Which state has sold highest number of items?
+California has the high number of items with 7667 items sold.
+SELECT State, SUM(Quantity) AS total_items_sold
+FROM Superstore_Data
+GROUP BY State
+ORDER BY total_items_sold DESC
+LIMIT 1;
+Which state has sold the lowest total sales?
+North Dakota has the lowest sales with $919.91.
+SELECT State, SUM(Sales) AS total_sales
+FROM Superstore_Data
+GROUP BY State
+ORDER BY total_sales ASC
+LIMIT 1;
+
+Update the sales for order id CA-2017-135111 with subcategory “Art” to 200 and CA-2017-111332 with subcategory “Fasteners” to 400.
+UPDATE Superstore_Data
+SET Sales = 200
+WHERE "Order ID" = 'CA-2017-135111' AND "Sub-Category" = 'Art';
+
+UPDATE Superstore_Data
+SET Sales = 400
+WHERE "Order ID" = 'CA-2017-111332' AND "Sub-Category" = 'Fasteners';
+
+
+
+
+
+Now recalculate the state with third least total sales?
+North Dakota has the third least total sales.
+SELECT State, SUM(Sales) as Sales
+FROM Superstore_Data
+GROUP BY State
+ORDER BY Sales ASC
+LIMIT 3;
+
+
+Name top 5 customers who has contributed, an average profit greater than or equal to 100 .
+Tamara Chand, Mitch Willingham, Hunter Lopez, Tom Ashbrook, and Christopher Martinez are the top 5 customers with an average profit over 100. 
+
+SELECT "Customer Name", AVG(Profit) AS average_profit
+FROM Superstore_Data
+GROUP BY "Customer Name"
+HAVING AVG(Profit) >= 100
+ORDER BY average_profit DESC
+LIMIT 5;
+
+Name the least 5 contributing customers in terms of average profit.
+Cindy Stewart, Grant Thornton, Sharelle Roach, Paul Knutson, Jim Radford
+SELECT "Customer Name", AVG(Profit) AS average_profit
+FROM Superstore_Data
+GROUP BY "Customer Name"
+ORDER BY average_profit ASC
+LIMIT 5;
+
+
+How many customers have a first name beginning with "An" ?
+There are 25 customer with the first name starting with “An”
+SELECT COUNT(DISTINCT "Customer Name") AS customer_count
+FROM Superstore_Data
+WHERE "Customer Name" LIKE 'An%';
